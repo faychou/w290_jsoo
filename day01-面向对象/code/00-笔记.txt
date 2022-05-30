@@ -136,3 +136,34 @@ delete obj.age; // 删除该属性
   函数.prototype.属性/方法 
 
   实例.属性/方法
+
+5.3 constructor
+  函数的原型上有一个 constructor 属性，是一个函数，指向当前构造函数本身。
+
+  console.log(Person.prototype.constructor === Person); // true
+
+5.4 __proto__
+  每个实例对象都有一个 __proto__ 属性，指向他的构造函数的原型。
+
+  console.log(obj1.__proto__ === Person.prototype); // true
+
+  Person.__proto__ // Function
+  Function.__proto__ // Object
+  Object.__proto__ // null
+  Person.prototype.__proto__ // Object
+
+5.5 原型链
+当访问对象属性的时候，如果在当前对象内部，无法找到该属性，那么会在他的原型上寻找该属性，那么原型上该属性也不存在，就会在原型的原型上寻找，如此循环下去，直到找到该属性或者到达顶层对象。在查找对象属性的过程中形成的链条就称为原型链。
+
+5.6 原型的应用
+  >> 扩展内置构造函数
+    Array.prototype.del = function (index) {
+      this.splice(index, 1);
+    }
+
+    let arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+    arr.del(1);
+
+  >> 简单封装一个 dom 操作
+    

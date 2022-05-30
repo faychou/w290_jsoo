@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="box">点我</div>
+
+  <script>
+    function Dom(id) {
+      this.dom = document.getElementById(id);
+    }
+
+    Dom.prototype.html = function (value) {
+      let dom = this.dom;
+      if (value) {
+        dom.innerHTML = value;
+      } else {
+        return dom.innerHTML;
+      }
+    }
+    Dom.prototype.on = function (type, fn) {
+      let dom = this.dom;
+      dom.addEventListener(type, fn, false);
+      return this; // 链式写法的实现
+    }
+
+    const box = new Dom('box');
+    box
+      .on('click', function () {
+        alert('哈哈，懵了吧');
+      })
+      .html('自定义的方法');
+    console.log(box.html());
+
+  </script>
+</body>
+
+</html>

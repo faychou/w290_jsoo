@@ -38,7 +38,22 @@
     let obj2 = new Person('lily', 18);
     // console.dir(Person);
     obj1.sayHi();
-    console.log('obj1.sayHi == obj2.sayHi: ', obj1.sayHi == obj2.sayHi);
+    // console.log('obj1.sayHi == obj2.sayHi: ', obj1.sayHi == obj2.sayHi);
+
+    // console.log('Person.prototype.constructor === Person: ', Person.prototype.constructor === Person);
+
+    // console.log('obj1.__proto__ === Person.prototype', obj1.__proto__ === Person.prototype);
+    console.dir(Person.prototype.__proto__);
+
+    // 需求：需要一个方法，调用该方法，并且传递一个下标，就能删除该下标对应的数组元素
+    Array.prototype.del = function (index) {
+      this.splice(index, 1);
+    }
+
+    let arr = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+    arr.del(1);
+    console.log(arr);
   </script>
 </body>
 
