@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 现象1
+    let str1 = 'abc';
+    let str2 = str1;
+    str2 = 'def';
+    console.log(str1, str2);
+
+    // 现象2
+    let obj1 = {
+      name: 'jack',
+      city: undefined,
+      sayHi() { },
+      children: [
+        {
+          name: 'john'
+        }
+      ]
+    }
+    let obj2 = obj1; // 只是复制了指针的位置，实际上两个变量指向同一个堆空间，会相互影响
+    // obj2.name = 'john';
+    // obj2.age = 18;
+
+    let obj3 = {
+      ...obj1
+    };
+    // obj3.age = 12;
+    // obj3.children[0].name = 'lily';
+
+    let obj4 = JSON.parse(JSON.stringify(obj1));
+    obj4.age = 10;
+    obj4.children[0].name = 'lily';
+    console.log(obj1, obj4);
+  </script>
+</body>
+
+</html>

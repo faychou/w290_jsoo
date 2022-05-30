@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // let s1 = Symbol();
+    // let s2 = Symbol();
+    // let s3 = Symbol('abc');
+    // let s4 = Symbol('abc');
+    // console.log('s1 == s2', s1 == s2);
+    // console.log('s3 == s4', s3 == s4);
+    let username = Symbol();
+    let obj = {
+      [username]: 'jack'
+    }
+    console.log(obj, obj[username]);
+    let username2 = Symbol();
+    let obj2 = {
+      [username2]: 'john',
+      age: 18,
+      username: 'lily'
+    }
+    let newObj = Object.assign({}, obj, obj2); // 将 obj 和 obj2 合并到第一个参数上，故一般参数1设置空对象
+    // let newObje = {
+    //   ...obj,
+    //   ...obj2
+    // }
+    console.log(newObj, obj, obj2)
+  </script>
+</body>
+
+</html>

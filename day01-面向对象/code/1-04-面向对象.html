@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+      // this.sayHi = function () {
+      //   console.log('Hi');
+      // }
+    }
+    Person.prototype.sayHi = function () {
+      console.log('Hi');
+    }
+    // function MyObject(name, age) {
+    //   this.name = name;
+    //   this.age = age;
+    // }
+
+    // let obj1 = new Person('jack', 18);
+    // let obj2 = new MyObject('jack', 18);
+    // // console.log(obj1, obj2);
+    // console.log(obj1 instanceof Person); // true
+    // console.log(obj2 instanceof MyObject); // true
+    // console.log(obj1 instanceof MyObject); // false
+    // console.log(MyObject instanceof Object); // true
+
+    let obj1 = new Person('jack', 18);
+    let obj2 = new Person('lily', 18);
+    // console.dir(Person);
+    obj1.sayHi();
+    console.log('obj1.sayHi == obj2.sayHi: ', obj1.sayHi == obj2.sayHi);
+  </script>
+</body>
+
+</html>

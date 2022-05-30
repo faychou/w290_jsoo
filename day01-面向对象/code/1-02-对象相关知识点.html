@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 创建对象 - 内置构造函数
+    let obj1 = new Object();
+    obj1.name = 'abc';
+
+    // 创建对象 - 字面量得写法
+    let obj2 = {};
+
+    // 创建对象 - 工厂函数：解决批量创建得问题，不能解决对象识别得问题。
+    function createObje() {
+      let obj = new Object();
+      obj.name = '';
+      return obj;
+    }
+
+    // 创建对象 - 构造函数
+    function MyObject() {
+      this.name = '';
+    }
+
+
+    // console.log(new MyObject());
+    let s = Symbol();
+    let obj = {
+      name: 'jack',
+      age: 18,
+      [s]: 'symbol',
+      sayHi() {
+        // ...
+      }
+    }
+    // let myName = 'name';
+    // let myNa = 'na';
+    // console.log(obj.name);
+    // console.log(obj['name']);
+    // console.log(obj[myName]);
+    // console.log(obj[myNa + 'me']);
+
+    // for (let key in obj) {
+    //   console.log(key, obj[key]);
+    // }
+
+    // console.log(Object.keys(obj));
+    // console.log(Object.values(obj));
+
+    // obj = null; // 销毁对象
+    delete obj.age;
+    console.log(obj);
+  </script>
+</body>
+
+</html>
