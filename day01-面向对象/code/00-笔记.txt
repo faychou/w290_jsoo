@@ -167,3 +167,141 @@ delete obj.age; // 删除该属性
 
   >> 简单封装一个 dom 操作
     
+
+6、this(重难点)
+6.1 理解
+  当函数在被调用的时候，会创建一个活动记录（也称为执行上下文），这个记录会包含函数在哪里调用，调用的方法，传入的参数等等信息。this 就是这个执行上下文 其中一个属性，会在函数执行的过程中用到。
+
+  this 在非严格模式下，总是指向一个对象，在严格模式下可以是任意值。
+
+  总之 this 是一个指针，是在运行时绑定的，而不是在编写时绑定的，所以 this 永远指向最后调用它的对象。
+
+6.2 调用位置
+  function baz() {
+    // 调用栈：baz
+    bar(); // bar调用位置
+  }
+
+  function bar() {
+    // 调用栈：baz -> bar
+    foo(); // foo 的调用位置
+  }
+
+  function foo() {
+    // 调用栈：baz -> bar -> foo
+  }
+
+  window.baz();
+
+  6.3 this 的指向
+  6.3.1 默认指向
+  严格模式下绑定到 undefined，非严格模式下绑定到全局 window 。
+
+  function foo() {
+    // 'use strict'; // 加了这一句代码，this 就是 undefined
+    console.log(this); // window
+  }
+  foo();
+
+  6.3.2 构造函数中的 this
+  如果函数是通过 new 调用的，this 就指向构造函数中默认创建的对象。
+
+  6.3.3 隐式指向
+    当函数引用的时候，有上下文对象时，就会把 this 绑定到该对象上。
+
+    const obj = {
+      name: 'jack',
+      sayHi() {
+        console.log('Hi', this.name);
+      }
+    }
+    obj.sayHi(); // Hi jack 
+
+    // 有多个上下文对象时，只看最后一个调用位置
+    function sayHi() {
+      console.log('Hi', this.name);
+    }
+    const obj2 = {
+      name: 'john',
+      sayHi
+    }
+    const obj1 = {
+      name: 'jack',
+      obj2
+    }
+    obj1.obj2.sayHi(); // Hi john
+
+    // 隐式丢失
+    const obj = {
+      name: 'john',
+      sayHi() {
+        console.log('Hi', this.name);
+      }
+    }
+    const hi = obj.sayHi;
+    window.name = 'window name';
+    hi(); // Hi window name
+
+    const obj = {
+      name: 'john',
+      sayHi() {
+        window.setTimeout(function () {
+          console.log('Hi', this.name);
+        })
+      }
+    }
+    window.name = 'window name';
+    obj.sayHi(); // Hi window name
+
+  6.3.4 显示指向
+    >> call、apply、bind
+
+    >> 箭头函数
+      箭头函数中是没有 this 绑定的，内部的 this 是指向 箭头函数所在的作用域。
+
+      所以箭头函数中 this 指向定义箭头函数时的位置，而不是调用箭头函数的位置。
+
+6.4 call、apply、bind
+  >> fn.call(obj, 参数1, 参数2, ...)
+    是指将函数 fn 内部的 this 指向 obj 对象，并且立即调用该函数，并且参数1,参数2 等传给该函数。
+
+    let p1 = {
+      name: '周瑜',
+      phone(time, name) {
+        console.log(this.name + '给' + name + '打了' + time + '个小时电话');
+      }
+    }
+
+
+    let p2 = {
+      name: '曹操'
+    }
+    p1.phone.call(p2, 24, '小乔'); // 立即调用 phone 函数，并且临时性将该函数内的 this 指向 p2 
+
+  >> fn.apply(obj, [参数1, 参数2])
+    作用与 call 相同，只是参数传递方式不一样。
+
+    p1.phone.call(p2, 24, '小乔');
+
+  >> fn.bind(obj, 参数)
+    将 fn 内部的 this 指针永远指向 obj，但是不会默认执行。
+
+    let p2 = {
+      name: '曹操'
+    }
+
+    let p1 = {
+      name: '周瑜',
+      phone: function (time, name) {
+        console.log(this.name + '给' + name + '打了' + time + '个小时电话');
+      }.bind(p2) // 改变 this，但是不会执行函数
+    }
+    p1.phone();
+
+  >> 区别
+    * call 和 aplly 都是临时性修改 this 指向；
+    * call 和 aplly 都会立即执行一次当前函数；
+    * bind 是被动执行，不会主动调用函数；
+    * bind 会永久性修改 this 指向；
+    * bind 一般用于回调函数中；
+    * call 与 apply 的唯一区别是参数传递方式不一样。

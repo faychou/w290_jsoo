@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // function foo() {
+    //   'use strict';
+    //   console.log(this);
+    // }
+    // foo();
+
+    // const obj = {
+    //   name: 'jack',
+    //   sayHi() {
+    //     console.log('Hi', this.name);
+    //   }
+    // }
+    // obj.sayHi();
+
+    // function sayHi() {
+    //   console.log('Hi', this.name);
+    // }
+    // const obj2 = {
+    //   name: 'john',
+    //   sayHi
+    // }
+    // const obj1 = {
+    //   name: 'jack',
+    //   obj2
+    // }
+    // obj1.obj2.sayHi();
+
+    // const obj = {
+    //   name: 'john',
+    //   sayHi() {
+    //     console.log('Hi', this.name);
+    //   }
+    // }
+    // const hi = obj.sayHi;
+    // window.name = 'window name';
+    // hi(); // Hi window name
+
+    // const obj = {
+    //   name: 'john',
+    //   sayHi() {
+    //     console.log('Hi', this.name);
+    //     window.setTimeout(function () {
+    //       console.log('Hi', this.name);
+    //     })
+    //   }
+    // }
+    // window.name = 'window name';
+    // obj.sayHi(); // Hi window name
+    // let p2 = {
+    //   name: '曹操'
+    // }
+
+    // let p1 = {
+    //   name: '周瑜',
+    //   phone: function (time, name) {
+    //     console.log(this.name + '给' + name + '打了' + time + '个小时电话');
+    //   }.bind(p2) // 改变 this，但是不会执行函数
+    // }
+
+    // p1.phone.call(p2, 24, '小乔'); // 立即调用 phone 函数，并且临时性将该函数内的 this 指向 p2
+
+    // p1.phone();
+
+    // 保证 this 指向 obj 方法1
+    // const obj = {
+    //   name: 'john',
+    //   sayHi() {
+    //     // console.log('Hi', this.name);
+    //     setTimeout(() => {
+    //       console.log('Hi', this.name);
+    //     })
+    //   }
+    // }
+    // window.name = 'window name';
+    // obj.sayHi(); // Hi window name
+
+    // 保证 this 指向 obj 方法2
+    const obj = {
+      name: 'john',
+      sayHi() {
+        let that = this; // 缓存 this
+        setTimeout(function () {
+          console.log('Hi', that.name);
+        })
+      }
+    }
+    window.name = 'window name';
+    obj.sayHi(); // Hi window name
+  </script>
+</body>
+
+</html>
