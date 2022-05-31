@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 假设：一个游戏中的人物有50条命
+    // let lives = 50;
+    //   // 扣
+    //   lives -= 1;
+
+    // (function () {
+    //   let lives = 50; // 局部变量
+
+    //   window.add = function () { // 全局方法
+    //     lives += 1;
+    //   }
+    //   window.kill = function () {
+    //     lives -= 1;
+    //   }
+    //   window.getLives = function () {
+    //     return lives;
+    //   }
+    // })();
+
+    // 需求 - 每隔一秒输出一个递增的数字
+    // 写法1
+    // for (var i = 1; i <= 10; i++) {
+    //   (function (j) {
+    //     setTimeout(() => {
+    //       console.log(j);
+    //     }, 1000 * j);
+    //   })(i)
+    // }
+
+    // 写法2
+    // for (let i = 1; i <= 10; i++) {
+    //   setTimeout(() => {
+    //     console.log(i);
+    //   }, 1000 * i);
+    // }
+
+    // 写法3
+    // function foo(i) {
+    //   setTimeout(() => {
+    //     console.log(i);
+    //     foo(++i);
+    //   }, 1000);
+    // }
+    // foo(1);
+
+    // 需求：隐藏数据
+    (function () {
+      let data = {}; // 隐藏的数据，外部不能直接访问
+
+      window.setData = function (key, val) {
+        data[key] = val;
+      }
+      window.getData = function (key) {
+        return data[key];
+      }
+    })();
+
+    // setData('token', 'cnljksnclsnlc');
+    // console.log(getData('token'));
+
+    // Vue 的 computed 属性
+
+    function cached(fn) {
+      let cache = Object.create(null); // 创建空对象
+
+      return function (str) { // str 应该是 属性
+        let hit = cache[str];
+
+        return hit || (cache[str] = fn(str)); // 从 cache 中取出 str 的值，如果不存在则设置 str 属性
+      }
+    }
+
+    let c = cached(function (str) {
+      console.log('这里的函数实现将字符串首字母转大写');
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+
+    let result = c('hello');
+    let c1 = c('hello');
+    let c2 = c('hello');
+    let c3 = c('hello');
+    let c4 = c('world');
+    console.log(result, c1, c2, c3, c4);
+  </script>
+</body>
+
+</html>

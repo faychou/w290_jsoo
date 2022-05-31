@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // function foo() {
+    //   var a = 'abc';
+    //   bar();
+    // }
+
+    // function bar() {
+    //   console.log(a);
+    //   baz()
+    // }
+
+    // function baz() {
+    //   console.log(123);
+    // }
+
+    // foo();
+    // 入栈：foo --> bar --> baz
+    // 出栈：baz --> bar --> foo
+    var c = 123;
+    function foo() {
+      var a = 'abc';
+      bar();
+
+      function bar() {
+        var b = 'def';
+        console.log(a);
+
+        function baz() {
+          console.log(b, c, d);
+        }
+        baz();
+      }
+
+    }
+
+    foo();
+  </script>
+</body>
+
+</html>
