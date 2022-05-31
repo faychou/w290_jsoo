@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // (function () {
+    //   var a = 'abc';
+    //   console.log(a);
+    // })()
+
+    // console.log(a);
+
+    // function foo() {
+    //   console.log('abc');
+    //   foo();
+    // }
+    // foo();
+
+    // 如何利用 setTimeout 实现 setInterval 的功能
+    // function foo() {
+    //   console.log('abc');
+
+    //   setTimeout(foo, 1000)
+    // }
+    // foo();
+
+    // 累乘：实现 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1
+    // 方法1 for 循环
+    // 方法2 递归
+    function foo(n) {
+      if (n === 1) {
+        return 1; // 出口
+      }
+      return n * foo(n - 1); // 入口
+    }
+    console.log(foo(5));
+    /*
+      伪代码
+      第一次：5 * foo(4)
+      第二次：5 * 4 * foo(3)
+      第三次： 5 * 4 * 3 * foo(2)
+      第四次： 5 * 4 * 3 * 2 * foo(1)
+      第五次： 5 * 4 * 3 * 2 * 1
+    */
+
+    // 思考题
+    // 情况：后端会返回类似这样的数据
+    // const result = [
+    //   {
+    //     id: 1,
+    //     pid: 0,
+    //     name: '服装'
+    //   },
+    //   {
+    //     id: 2,
+    //     pid: 0,
+    //     name: '家电'
+    //   },
+    //   {
+    //     id: 3,
+    //     pid: 1,
+    //     name: '上衣'
+    //   },
+    //   {
+    //     id: 4,
+    //     pid: 1,
+    //     name: '裤子'
+    //   },
+    //   {
+    //     id: 5,
+    //     pid: 3,
+    //     name: '大衣'
+    //   },
+    //   {
+    //     id: 6,
+    //     pid: 3,
+    //     name: '夹克'
+    //   },
+    //   {
+    //     id: 7,
+    //     pid: 4,
+    //     name: '短裤'
+    //   }
+    // ]
+
+    // 前端期望的数据结构
+    // const hopeData = [
+    //   {
+    //     id: 1,
+    //     pid: 0,
+    //     name: '服装',
+    //     children: [
+    //       { id, pid, name },
+    //       { id, pid, name, chidren: [{}, {}] },
+    //     ]
+    //   }
+    // ]
+
+    // 需要做什么 - 扁平数据结构转为树状结构数据
+
+
+    // 处理事件监听的兼容
+    function on(dom, type, fn) {
+      console.log('添加事件监听的');
+
+      if (window.addEventListener) {
+        dom.addEventListener(type, fn, false);
+      } else if (window.attachEvent) {
+        dom.attachEvent('on' + type, fn);
+      } else {
+        dom['on' + type] = fn;
+      }
+    }
+    // 第一次判断后，重写函数
+    const event = {}
+    event.on = function (dom, type, fn) {
+      console.log('添加事件监听的');
+
+      if (window.addEventListener) {
+        event.on = function (dom, type, fn) {
+          dom.addEventListener(type, fn, false);
+        }
+      } else if (window.attachEvent) {
+        event.on = function (dom, type, fn) {
+          dom.attachEvent('on' + type, fn);
+        }
+      } else {
+        event.on = function (dom, type, fn) {
+          dom['on' + type] = fn;
+        }
+      }
+
+      // 保证首次调用的时候能够正常监听
+      return event.on(dom, type, fn);
+    }
+
+    const body = document.body;
+    const html = document.documentElement;
+    const head = document.getElementsByTagName('head')[0];
+
+    event.on(body, 'click', function () { });
+    event.on(html, 'click', function () { });
+    event.on(head, 'click', function () { });
+  </script>
+</body>
+
+</html>
