@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    (function () {
+      var privateAge = Symbol(); // 唯一值
+
+      // ES5: 定义一个类
+      function User(name, pwd, age, gender) {
+        var _name = name;
+        var _pwd = pwd; // 通过下划线标记私有变量
+        this.gender = gender; // public
+        this[privateAge] = age;
+
+        this.setName = function (name) { // 特权方法
+          _name = name;
+        }
+        this.getName = function () { // 特权方法
+          return _name;
+        }
+      }
+
+      User.prototype.showAge = function () {
+        var a;
+        if (this.gender == '女') {
+          a = '保密';
+        } else {
+          a = this[privateAge]
+        }
+        console.log(this.name + '的年龄是' + a);
+      }
+
+      window.User = User
+    })()
+
+    let u1 = new User('jack', '123', 12, '男');
+    let u2 = new User('lily', '123', 12, '女');
+    // console.log(u1.name);
+    console.log(u1.getName())
+    console.log(u1.pwd);
+    u1.showAge();
+    u2.showAge();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 父类
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    User.prototype.show = function () {
+      console.log(this.name);
+    }
+
+    // 子类
+    function Student(name, age, className) {
+      this.className = className;
+
+      // 借父类的构造函数实现子类继承父类的属性
+      // 但是没有继承父类原型上的属性
+      User.apply(this, arguments);
+    }
+    const s1 = new Student('小明', 12, '三年一班');
+    console.log(s1.age);
+    s1.show();
+  </script>
+</body>
+
+</html>

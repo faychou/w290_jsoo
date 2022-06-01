@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 父类
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    User.prototype.show = function () {
+      console.log(this.name);
+    }
+
+    // 子类
+    function Student(name, age, className) {
+      this.className = className;
+
+      // 第一步：子类中借父类构造函数，实现子类实例继承父类的属性
+      User.apply(this, arguments);
+    }
+
+    // 第二步、父类实例覆盖子类原型，实现子类继承父类原型上的属性
+    Student.prototype = new User();
+
+    // 第三步、找回子类丢失的 constructor 函数
+    Student.prototype.constructor = Student;
+
+    Student.prototype.city = '成都';
+
+    const s1 = new Student('小明', 12, '三年一班');
+    s1.show();
+    console.log(s1.age);
+    console.log(s1.className);
+    console.log(s1.city);
+
+    console.log(s1);
+
+    // 缺点
+    // 1. 两次调用父类构造函数
+    // 2. 继承了父类多余的属性
+  </script>
+</body>
+
+</html>

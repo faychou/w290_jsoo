@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 父类
+    function User(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    User.prototype.show = function () {
+      console.log(this.name);
+    }
+
+    // 子类
+    function Student(name, age, className) {
+      this.className = className;
+
+      // 第一步
+      User.apply(this, arguments);
+    }
+
+    // 子类子类继承父类原型
+    function inheritPrototype(Student, User) {
+      function F() { } // 创建空函数，因为空函数几乎不占据内存
+      F.prototype = User.prototype;
+      Student.prototype = new F();
+      Student.prototype.constructor = Student;
+    }
+    inheritPrototype(Student, User);
+
+    const s1 = new Student('小明', 12, '三年一班');
+    console.log(s1);
+  </script>
+</body>
+
+</html>

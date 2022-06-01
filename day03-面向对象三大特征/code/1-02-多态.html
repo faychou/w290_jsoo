@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    function Person() {
+      this.say = function () {
+        console.log('你正在访问人类世界');
+      }
+    }
+    function Cat() {
+      this.say = function () {
+        console.log('你正在访问喵星人世界');
+      }
+    }
+
+    function output(obj) {
+      obj.say();
+    }
+    output(new Person());
+    output(new Cat());
+  </script>
+</body>
+
+</html>
