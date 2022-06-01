@@ -1,0 +1,73 @@
+<!-- 
+  1、防抖
+    1.1 概念
+      事件触发后，在 n 秒内，只能触发最后一事件的函数，其他的会被取消。
+
+    1.2 实现
+      // func 要执行的函数
+      // wait 就是多少秒内值执行一次函数的时间
+      function debounce(func, wait) {
+        var timer;
+
+        return function () {
+          var context = this; // 缓存 this
+          var arg = arguments; // 缓存 arguments
+
+          clearTimeout(timer); // 清除一个计时器
+
+          timer = setTimeout(function () {
+            func.apply(context, arg)
+          }, wait)
+        }
+      }
+
+      window.onscroll = debounce(foo, 500)
+      function foo() {
+        var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        console.log(scrollTop);
+      }
+
+  2、节流
+  2.1 概念
+    如果持续触发事件，每隔一段时间，执行一次。
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p style="height: 1600px;"></p>
+
+  <script src="https://lib.baomitu.com/lodash.js/4.17.21/lodash.js"></script>
+  <script>
+    function throttle(func, wait) {
+      var start = new Date();
+
+      return function () {
+        var context = this;
+        var arg = arguments;
+        var end = new Date();
+
+        if (end - start > wait) {
+          func.apply(context, arg);
+          start = new Date();
+        }
+      }
+    }
+
+    window.onscroll = _.debounce(foo, 500)
+    function foo() {
+      var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+      console.log(scrollTop);
+    }
+  </script>
+</body>
+
+</html>
