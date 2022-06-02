@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    (function () {
+      function Popup(type, content) {
+        if (this instanceof Popup) {
+          if (!this[type]) {
+            throw new Error('参数错误')
+          }
+          return new this[type](content);
+        } else {
+          return new Popup(type, content)
+        }
+      }
+      Popup.prototype.Info = function (content) { }
+      Popup.prototype.Alert = function (content) { }
+      Popup.prototype.Confirm = function (content) { }
+      Popup.prototype.Prompt = function (content) { }
+
+      window.Popup = Popup;
+    })()
+
+    // 调用
+    Popup('Info', '警告');
+  </script>
+</body>
+
+</html>

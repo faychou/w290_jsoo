@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 自定义一个全局数据库存储对象
+    (function () {
+      // 数据库存储对象
+      function Store() { }
+
+      let instance;
+
+      function createStore() {
+
+        if (!(this instanceof createStore)) {
+          return new createStore();
+        }
+
+        if (!instance) {
+          console.log('不存在')
+          instance = new Store();
+        }
+        return instance
+      }
+
+      window.createStore = createStore;
+    })()
+
+    let store = new createStore();
+    store.aaa = 'aaaa'
+    console.log(store);
+    let s2 = new createStore();
+    console.log(s2);
+  </script>
+</body>
+
+</html>
